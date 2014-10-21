@@ -52,14 +52,14 @@ CXXFLAGS  = ${DEPENDFLAGS} -ansi -Wall
 	${CXX} ${CPPFLAGS} ${CXXFLAGS} -c $< -o $@
 
 %.cpp : %.yacc
-	flex -+ src/Parser/pddl+.lex -o /src/Parser/lex.yy.cc; bison $< -o src/pddl+.cpp
+	flex -+ -o src/Parser/lex.yy.cc src/Parser/pddl+.lex ; bison $< -o src/pddl+.cpp
 
 	
 
 # C/C++/Eiffel/FORTRAN linker
 
 LINKER    := g++ -g 
-LDFLAGS    = -m64
+LDFLAGS    = 
 LOADLIBES := 
 
 
