@@ -59,7 +59,7 @@ CXXFLAGS  = ${DEPENDFLAGS} -ansi -Wall
 # C/C++/Eiffel/FORTRAN linker
 
 LINKER    := g++ -g 
-LDFLAGS    = 
+LDFLAGS    = -m64
 LOADLIBES := 
 
 
@@ -80,6 +80,22 @@ validate :: src/pddl+.o src/pddl+.o src/ptree.o src/Action.o src/Proposition.o s
 	${LINKER} ${LDFLAGS} -o $@ ${filter-out %.so, $^} ${LOADLIBES}
   endif
   endif
+
+# libVal
+
+libVal.a :: src/pddl+.o src/pddl+.o src/ptree.o src/Action.o src/Proposition.o src/FuncExp.o src/typecheck.o src/main.o src/Validator.o src/RepairAdvice.o src/LaTeXSupport.o src/State.o src/Plan.o src/Ownership.o src/Environment.o src/Polynomial.o src/DebugWriteController.o src/Utils.o src/TrajectoryConstraints.o src/RobustAnalyse.o src/random.o src/Events.o src/PrettyPrinter.o
+  ifeq (${suffix libVal.a}, .a)
+	@${RM} $@
+	${AR} crs $@ ${filter-out %.a %.so, $^}
+  else
+  ifeq (${suffix libVal.a}, .so)
+	${LINKER} -shared ${LDFLAGS} -o $@ ${filter-out %.a %.so, $^} ${LOADLIBES}
+  else
+	${LINKER} ${LDFLAGS} -o $@ ${filter-out %.so, $^} ${LOADLIBES}
+  endif
+  endif
+
+
 
 # parser
 
