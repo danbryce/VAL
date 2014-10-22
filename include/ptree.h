@@ -1461,8 +1461,9 @@ public:
 template<class pc>
 pc_list<pc>::~pc_list()
 {
-    for (typename pc_list<pc>::iterator i=_Base::begin(); i!=_Base::end(); ++i)
-	delete(*i);
+  _Base::clear();
+  //  for (typename pc_list<pc>::iterator i=_Base::begin(); i!=_Base::end(); ++i)
+  // 	delete(*i);
 };
 
 class structure_store : public parse_category
