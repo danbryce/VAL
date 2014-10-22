@@ -376,7 +376,7 @@ c_func_decl :
 |   OPEN_BRAC error CLOSE_BRAC
 	{yyerrok;
 	 log_error(E_FATAL,"Syntax error in functor declaration.");
-	 $$= (int) NULL; }
+	 $$=  NULL; }
 ;
 
 c_ntype :
