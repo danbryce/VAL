@@ -826,8 +826,8 @@ public:
 		delete arg1;
 		delete arg2;
 	};
-	const expression * getLHS() const {return arg1;};
-	const expression * getRHS() const {return arg2;};
+	 expression * getLHS() const {return arg1;};
+	 expression * getRHS() const {return arg2;};
 };
 
 class plus_expression : public binary_expression
@@ -887,7 +887,7 @@ public:
     virtual void write(ostream & o) const;
     virtual void visit(VisitController * v) const;
 
-    const expression * getExpr() const {return arg1;};
+    expression * getExpr() const {return arg1;};
 };
 
 typedef long double NumScalar;
@@ -1106,7 +1106,7 @@ private:
 public:
     conj_goal(goal_list* gs): goals(gs) {};
     virtual ~conj_goal() { delete goals; };
-    const goal_list * getGoals() const {return goals;};
+     goal_list * getGoals() const {return goals;};
 	virtual void display(int ind) const;
 	virtual void write(ostream & o) const;
 	virtual void visit(VisitController * v) const;
@@ -1157,7 +1157,7 @@ public:
 	virtual void write(ostream & o) const;
 	virtual void visit(VisitController * v) const;
     virtual void destroy() {gl = 0; delete this;};//do not delete gl
-    const goal * getGoal() const {return gl;};
+     goal * getGoal() const {return gl;};
 };
 
 class timed_goal : public goal
@@ -1178,7 +1178,7 @@ public:
 	virtual void display(int ind) const;
 	virtual void write(ostream & o) const;
 	virtual void visit(VisitController * v) const;
-    const goal * getGoal() const {return gl;};
+     goal * getGoal() const {return gl;};
     time_spec getTime() const {return ts;};
 };
 
