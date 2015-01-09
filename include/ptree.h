@@ -773,7 +773,7 @@ public:
       head(h), args(a), var_tab(vt) {};
 
 	const func_symbol * getFunction() const {return head;};
-    const var_symbol_list * getArgs() const {return args;};
+     var_symbol_list * getArgs() const {return args;};
 
     virtual ~func_decl() { delete args; delete var_tab; };
     virtual void display(int ind) const;
@@ -1349,7 +1349,7 @@ public:
 	virtual void visit(VisitController * v) const;
 
     const func_term * getFTerm() const {return f_term;};
-    const expression* getExpr() const {return expr;};
+    expression* getExpr() const {return expr;};
     const assign_op getOp() const {return op;};
 };
 
