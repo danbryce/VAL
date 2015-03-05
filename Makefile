@@ -28,7 +28,7 @@ CPPFLAGS =
 
 # C compiler
 
-CC     ?= gcc
+CC     ?= ${CC}
 CFLAGS  = ${DEPENDFLAGS}
 
 %.o : %.c
@@ -36,7 +36,7 @@ CFLAGS  = ${DEPENDFLAGS}
 
 # C++ compiler
 
-CXX      ?= g++
+CXX      ?= ${CXX}
 CXXFLAGS  = ${DEPENDFLAGS} -ansi -Wall -std=c++11 -Wno-deprecated-register -Wno-deprecated-declarations
 
 %.o : %.cc
@@ -58,7 +58,7 @@ CXXFLAGS  = ${DEPENDFLAGS} -ansi -Wall -std=c++11 -Wno-deprecated-register -Wno-
 
 # C/C++/Eiffel/FORTRAN linker
 
-LINKER    := g++ -g
+LINKER    := ${CXX} 
 LDFLAGS    = 
 LOADLIBES := 
 
