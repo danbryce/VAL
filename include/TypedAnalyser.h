@@ -1414,6 +1414,13 @@ public:
 		};
 	};
 
+	virtual void visit_probability(probability * p)
+	{
+		// TODO
+		p->getMean()->visit(this);
+		p->getStdDev()->visit(this);
+	};
+
 	virtual void visit_comparison(comparison * p)
 	{
 		p->getLHS()->visit(this);

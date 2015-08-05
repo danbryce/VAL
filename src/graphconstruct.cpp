@@ -133,6 +133,12 @@ public:
     {
 		bval = new PointValue(fe->double_value());
     };
+    virtual void visit_normal_dist_expression(normal_dist_expression * nde) 
+    {
+    	// TODO
+		nde->getMean()->visit(this);
+		nde->getStdDev()->visit(this);
+    };
     virtual void visit_special_val_expr(special_val_expr *) 
     {continuous = true;};
     virtual void visit_func_term(func_term * ft) 
@@ -671,6 +677,10 @@ struct IteratingActionChecker : public VisitController {
 			default:
 				break;
 		};
+	};
+	virtual void visit_probability(probability * a) 
+	{
+		// TODO
 	};
 };
 

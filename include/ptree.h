@@ -103,6 +103,8 @@ class parse_category;
   class num_expression;
   class int_expression;
   class float_expression;
+  class dist_expression;
+  class normal_dist_expression;
   class func_term;
   class class_func_term;
   class special_val_expr;
@@ -125,6 +127,7 @@ class parse_category;
   class timed_effect;
    class timed_initial_literal;
   class assignment;
+  class probability;
 
  class structure_store;
  class operator_list;
@@ -156,7 +159,8 @@ struct VisitController;
 
 enum quantifier { E_FORALL, E_EXISTS };
 enum polarity { E_NEG, E_POS };
-enum assign_op { E_ASSIGN, E_INCREASE, E_DECREASE, E_SCALE_UP, E_SCALE_DOWN, E_ASSIGN_CTS};
+enum assign_op { E_ASSIGN, E_INCREASE, E_DECREASE, E_SCALE_UP, E_SCALE_DOWN, E_ASSIGN_CTS };
+enum dist_type { E_NORMAL };
 enum comparison_op { E_GREATER, E_GREATEQ, E_LESS, E_LESSEQ, E_EQUALS };
 enum optimization { E_MINIMIZE, E_MAXIMIZE };
 enum time_spec { E_AT_START, E_AT_END, E_OVER_ALL, E_CONTINUOUS, E_AT };
@@ -925,6 +929,35 @@ public:
     const NumScalar double_value() const {return static_cast<const NumScalar>(val);};
 };
 
+class dist_expression : public expression {
+public:
+	virtual ~dist_expression() {};
+	virtual const dist_type getDistType() const = 0;
+};
+
+class normal_dist_expression : public dist_expression
+{
+private:
+	expression *mean;
+	expression *std_dev;
+	dist_type dt = E_NORMAL;
+public:
+    normal_dist_expression(expression *m, expression *s) :
+		mean(m), std_dev(s) {};
+    virtual ~normal_dist_expression()
+    {
+    	delete mean;
+		delete std_dev;
+    };
+    virtual void display(int ind) const;
+    virtual void write(ostream & o) const;
+    virtual void visit(VisitController * v) const;
+
+    expression * getMean() const {return mean;};
+    expression * getStdDev() const {return std_dev;};
+    const dist_type getDistType() const {return dt;} ;
+};
+
 class func_term : public expression
 {
 protected:
@@ -1212,6 +1245,7 @@ public:
     pc_list<cond_effect*>   cond_assign_effects;
     pc_list<assignment*>    assign_effects;
     pc_list<timed_effect*>  timed_effects;
+    pc_list<probability*>	random_effects;
 
     effect_lists() {};
 
@@ -1351,6 +1385,25 @@ public:
     const func_term * getFTerm() const {return f_term;};
     expression* getExpr() const {return expr;};
     const assign_op getOp() const {return op;};
+};
+
+class probability : public effect
+{
+private:
+    func_term *f_term;
+    dist_type dt;		   // distribution type
+    dist_expression *expr; // distribution expression
+public:
+    probability(func_term *ft, dist_expression *e) :
+		f_term(ft), dt(e->getDistType()), expr(e) {};
+    virtual ~probability() { delete f_term; delete expr; };
+    virtual void display(int ind) const;
+    virtual void write(ostream & o) const;
+	virtual void visit(VisitController * v) const;
+
+    const func_term * getFTerm() const {return f_term;};
+	const dist_type getDistType() const {return dt;};
+    dist_expression* getExpr() const {return expr;};
 };
 
 

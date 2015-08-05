@@ -162,6 +162,7 @@ public:
 	virtual void visit_uminus_expression(VAL::uminus_expression * s);
 	virtual void visit_int_expression(VAL::int_expression * s);
 	virtual void visit_float_expression(VAL::float_expression * s);
+	virtual void visit_normal_dist_expression(VAL::normal_dist_expression * s);
 	virtual void visit_special_val_expr(VAL::special_val_expr * s);
 	virtual void visit_func_term(VAL::func_term * s);
 

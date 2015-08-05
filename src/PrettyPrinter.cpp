@@ -113,6 +113,12 @@ void PrettyPrinter::write_float_expression(ostream & o,const float_expression * 
 	o << p->double_value();
 };
 
+void PrettyPrinter::write_normal_dist_expression(ostream & o,const normal_dist_expression * p)
+{
+	// TODO
+	o << "N(" << p->getMean() << ", " << p->getStdDev() << ")";
+};
+
 
 void PrettyPrinter::write_special_val_expr(ostream & o,const special_val_expr * p)
 {
@@ -182,6 +188,18 @@ void PrettyPrinter::write_assignment(ostream & o,const assignment * p)
 	p->getFTerm()->write(o);
 	o << " ";
 	p->getExpr()->write(o);
+	o << ")";
+
+};
+
+void PrettyPrinter::write_probability(ostream & o,const probability * p)
+{
+
+	// TODO
+ 	o << "(probabilistic ";
+	p->getExpr()->write(o);
+	o << " ";
+	p->getFTerm()->write(o);
 	o << ")";
 
 };

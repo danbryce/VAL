@@ -117,6 +117,7 @@ using namespace VAL;
     assignment* t_assignment;
     expression* t_expression;
     num_expression* t_num_expression;
+    dist_expression* t_dist_expression;
     assign_op t_assign_op;
     comparison_op t_comparison_op;
 
@@ -190,6 +191,7 @@ using namespace VAL;
 %type <t_assignment> c_assignment c_f_assign_da
 %type <t_expression> c_f_exp c_ground_f_exp c_binary_ground_f_exp c_f_exp_da c_f_exp_t c_binary_expr_da c_d_value c_binary_ground_f_pexps c_binary_ground_f_mexps
 %type <t_num_expression> c_number
+%type <t_dist_expression> c_init_distribution
 %type <t_comparison_op> c_comparison_op c_d_op
 
 %type <t_structure_def> c_structure_def
@@ -244,7 +246,7 @@ using namespace VAL;
        GREATER GREATEQ LESS LESSEQ /* EQUALS */ Q COLON NUMBER
        ALWAYS SOMETIME WITHIN ATMOSTONCE SOMETIMEAFTER SOMETIMEBEFORE
        ALWAYSWITHIN HOLDDURING HOLDAFTER ISVIOLATED
-       BOGUS
+       BOGUS COMMA PROBABILISTIC NORMAL_DIST
 
 
 %token <cp> NAME FUNCTION_SYMBOL
@@ -565,6 +567,10 @@ c_init_els :
           	requires(E_NFLUENTS);
           }
 	}
+|   c_init_els OPEN_BRAC PROBABILISTIC c_f_head c_init_distribution CLOSE_BRAC
+        { $$=$1; $$->random_effects.push_back(new probability($4,$5)); }
+|   c_init_els OPEN_BRAC PROBABILISTIC c_init_distribution c_f_head CLOSE_BRAC
+        { $$=$1; $$->random_effects.push_back(new probability($5,$4)); }
 |   c_init_els c_init_pos_simple_effect
         { $$=$1; $$->add_effects.push_back($2); }
 |   c_init_els c_init_neg_simple_effect
@@ -573,6 +579,11 @@ c_init_els :
 		{ $$=$1; $$->timed_effects.push_back($2); }
 |   /* empty */
         { $$= new effect_lists;}
+;
+
+c_init_distribution :
+    NORMAL_DIST OPEN_BRAC c_number COMMA c_number CLOSE_BRAC
+      { $$= new normal_dist_expression($3,$5); }
 ;
 
 c_timed_initial_literal :

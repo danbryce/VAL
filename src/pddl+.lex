@@ -130,6 +130,9 @@ at_time "at"{whitespace}{float}
 ":" {return COLON;}
 "." {return DOT;}
 ":modules" {return MODULES;}
+"," {return COMMA;}
+"probabilistic" {return PROBABILISTIC;}
+"N" {return NORMAL_DIST;}
 
 {at_time} {unsigned int i;
            for(i = 3;i < strlen(yytext);++i)

@@ -558,6 +558,13 @@ void SimpleEvaluator::visit_float_expression(float_expression * s)
 	nvalue = s->double_value();
 };
 
+void SimpleEvaluator::visit_normal_dist_expression(normal_dist_expression * s)
+{
+	// TODO
+	p->getMean()->visit(this);
+	p->getStdDev()->visit(this);
+};
+
 void SimpleEvaluator::visit_special_val_expr(special_val_expr * s)
 {
 	if(s->getKind() == E_DURATION_VAR) isDuration = true;

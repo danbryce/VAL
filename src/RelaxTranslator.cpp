@@ -134,6 +134,12 @@ void RelaxTranslator::write_float_expression(ostream & o,const float_expression 
 	o << p->double_value();
 };
 
+void RelaxTranslator::write_normal_dist_expression(ostream & o,const normal_dist_expression * p)
+{
+	// TODO
+	o << "N(" << p->getMean() << ", " << p->getStdDev() << ")";
+};
+
 
 void RelaxTranslator::write_special_val_expr(ostream & o,const special_val_expr * p)
 {
@@ -207,6 +213,18 @@ void RelaxTranslator::write_assignment(ostream & o,const assignment * p)
 		o << "10"; // Here we need to think! 
 	}
 	else p->getExpr()->write(o);
+	o << ")";
+
+};
+
+void RelaxTranslator::write_probability(ostream & o,const probability * p)
+{
+
+ 	// TODO
+	o << "(probabilistic ";
+	p->getExpr()->write(o);
+	o << " ";
+	p->getFTerm()->write(o);
 	o << ")";
 
 };

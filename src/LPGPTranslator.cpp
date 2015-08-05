@@ -116,6 +116,12 @@ void LPGPTranslator::write_float_expression(ostream & o,const float_expression *
 	o << p->double_value();
 };
 
+void LPGPTranslator::write_normal_dist_expression(ostream & o,const normal_dist_expression * p)
+{
+	// TODO
+	o << "N(" << p->getMean() << ", " << p->getStdDev() << ")";
+};
+
 
 void LPGPTranslator::write_special_val_expr(ostream & o,const special_val_expr * p)
 {
@@ -170,6 +176,9 @@ void LPGPTranslator::write_assignment(ostream & o,const assignment * p)
 	p->getExpr()->write(o);
 	o << ")";
 */
+};
+void LPGPTranslator::write_probability(ostream & o,const probability * p)
+{
 };
 
 struct Writer {

@@ -48,11 +48,13 @@ struct WriteController {
 	virtual void write_uminus_expression(ostream & o,const uminus_expression *) {};
 	virtual void write_int_expression(ostream & o,const int_expression *) {};
 	virtual void write_float_expression(ostream & o,const float_expression *) {};
+	virtual void write_normal_dist_expression(ostream & o,const normal_dist_expression *) {};
 	virtual void write_special_val_expr(ostream & o,const special_val_expr *) {};
 	virtual void write_violation_term(ostream & o,const violation_term *) {};
 	virtual void write_func_term(ostream & o,const func_term *) {};
 	virtual void write_class_func_term(ostream & o,const class_func_term *) {};
 	virtual void write_assignment(ostream & o,const assignment *) {};
+	virtual void write_probability(ostream & o,const probability *) {};
 	virtual void write_goal_list(ostream & o,const goal_list * p) {p->pc_list<goal*>::write(o);};
 	virtual void write_preference(ostream & o,const preference * p) {};
 	virtual void write_constraint_goal(ostream & o,const constraint_goal *) {};

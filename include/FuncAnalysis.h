@@ -142,6 +142,10 @@ public:
 	{
 		p->getExpr()->visit(this);
 	};	
+	virtual void visit_probability(probability * p) 
+	{
+		p->getExpr()->visit(this);
+	};	
 	virtual void visit_special_val_expr(special_val_expr * s)
 	{
 		cont = true;
@@ -554,6 +558,12 @@ public:
 			val = E_ZERO;
 		};
 		val.assertConst();
+	};
+	virtual void visit_normal_dist_expression(normal_dist_expression * p) 
+	{
+		// TODO
+		p->getMean()->visit(this);
+		p->getStdDev()->visit(this);
 	};
 	FValue operator()() {return val;};
 };

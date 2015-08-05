@@ -291,6 +291,13 @@ public:
 			delete pne;
 		};
 	};
+
+	virtual void visit_probability(probability * p) 
+	{
+		// TODO
+		p->getMean()->visit(this);
+		p->getStdDev()->visit(this);
+	};
 };
 
 void instantiatedOp::createAllLiterals(VAL::problem * p) 

@@ -1994,6 +1994,12 @@ const expression * copyExpression(const expression * e)
 		return new float_expression(aNumber);
 	};
 
+  // TODO
+  if(const normal_dist_expression * fexpression = dynamic_cast<const normal_dist_expression*>(e))
+  {
+    return new normal_dist_expression(const_cast<expression*>(copyExpression(fexpression->getMean())),const_cast<expression*>(copyExpression(fexpression->getStdDev())));
+  };
+
 	if(const uminus_expression * fexpression = dynamic_cast<const uminus_expression*>(e))
 	{
 		return new uminus_expression(const_cast<expression*>(copyExpression(fexpression->getExpr())));

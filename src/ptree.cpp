@@ -211,13 +211,25 @@ void int_expression::write(ostream & o) const
 
 void float_expression::display(int ind) const
 {
-    TITLE(int_expression);
+    TITLE(float_expression);
     LEAF(val);
 }
 
 void float_expression::write(ostream & o) const
 {
 	wcntr->write_float_expression(o,this);
+};
+
+void normal_dist_expression::display(int ind) const
+{
+    TITLE(normal_dist_expression);
+    FIELD(mean);
+    FIELD(std_dev);
+}
+
+void normal_dist_expression::write(ostream & o) const
+{
+    wcntr->write_normal_dist_expression(o,this);
 };
 
 void special_val_expr::display(int ind) const
@@ -275,6 +287,19 @@ void assignment::display(int ind) const
 void assignment::write(ostream & o) const
 {
 	wcntr->write_assignment(o,this);
+};
+
+void probability::display(int ind) const
+{
+    TITLE(probability);
+    LEAF(dt);
+    FIELD(f_term);
+    FIELD(expr);
+}
+
+void probability::write(ostream & o) const
+{
+    wcntr->write_probability(o,this);
 };
 
 void goal_list::display(int ind) const
@@ -553,6 +578,9 @@ void effect_lists::append_effects(effect_lists* from)
     timed_effects.splice(
 	timed_effects.begin(),
 	from->timed_effects);
+    random_effects.splice(
+    random_effects.begin(),
+    from->random_effects);
 }
 
 void effect_lists::display(int ind) const
@@ -581,6 +609,9 @@ void effect_lists::display(int ind) const
 
     LABEL(timed_effects);
     timed_effects.display(ind);
+
+    LABEL(random_effects);
+    random_effects.display(ind);
 }
 
 void effect_lists::write(ostream & o) const
@@ -930,10 +961,12 @@ void div_expression::visit(VisitController *v) const {v->visit_div_expression(th
 void uminus_expression::visit(VisitController *v) const {v->visit_uminus_expression(this);};
 void int_expression::visit(VisitController *v) const {v->visit_int_expression(this);};
 void float_expression::visit(VisitController *v) const {v->visit_float_expression(this);};
+void normal_dist_expression::visit(VisitController *v) const {v->visit_normal_dist_expression(this);};
 void special_val_expr::visit(VisitController *v) const {v->visit_special_val_expr(this);};
 void func_term::visit(VisitController *v) const {v->visit_func_term(this);};
 void class_func_term::visit(VisitController *v) const {v->visit_class_func_term(this);};
 void assignment::visit(VisitController *v) const {v->visit_assignment(this);};
+void probability::visit(VisitController *v) const {v->visit_probability(this);};
 void goal::visit(VisitController * v) const {};
 void constraint_goal::visit(VisitController *v) const {v->visit_constraint_goal(this);};
 void preference::visit(VisitController *v) const {v->visit_preference(this);};

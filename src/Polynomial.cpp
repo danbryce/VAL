@@ -47,6 +47,7 @@
 //#undef vector
 
 #include <math.h>
+#include <cmath>
 #include <vector>
 #include <algorithm>
 #include "Polynomial.h"
@@ -207,13 +208,13 @@ unsigned int Exponential::getNoTerms(CoScalar endInt) const
 
 	if( a >= 0)
   {
-               		aConstant = fabs(K*exp(a));
+               		aConstant = std::abs(K*exp(a));
                	rem = aConstant;
 
                	while(rem >= Polynomial::tooSmall)
                	{
                		N++;
-               		rem = aConstant * fabs(pow(a,N+1)) * recipfact(N);
+               		rem = aConstant * std::abs(pow(a,N+1)) * recipfact(N);
                	};
    };
          //cout << " \\\\\nN = "<<N<<"\\\\\n";
@@ -230,14 +231,14 @@ unsigned int Exponential::getNoTerms(CoScalar endInt) const
        //cout << " \\\\\nMin = "<<a<<"\\\\\n";
 	if( a < 0)
    {
-                     aConstant = fabs(K*exp(a));
+                     aConstant = std::abs(K*exp(a));
                      	rem = aConstant;
 
                      	while(rem >= Polynomial::tooSmall)
                      	{
                      		N1++;
 
-                     		rem = aConstant * fabs(pow(a,N1+1)) * recipfact(N1);
+                     		rem = aConstant * std::abs(pow(a,N1+1)) * recipfact(N1);
                      	};
                       // cout << " \\\\\nN1 = "<<N1<<"\\\\\n";
                       if(N1 > N) N =N1;
@@ -1464,7 +1465,7 @@ Intervals NumericalSolution::getIntervals(const Comparison * comp, const State* 
       };
 
        double endPoint;
-       if(j != points.end()) endPoint = lastTime+(j->first - lastTime)*(fabs(lastPoint)/(fabs(lastPoint) + fabs(j->second)));
+       if(j != points.end()) endPoint = lastTime+(j->first - lastTime)*(std::abs(lastPoint)/(std::abs(lastPoint) + std::abs(j->second)));
        else {endPoint = lastTime; strict = false;};
 
 		endPt = make_pair(endPoint,!strict);
@@ -1537,7 +1538,7 @@ Intervals NumericalSolution::getIntervals(const Comparison * comp, const State* 
               j++;
           };
 
-          if(startPointDefined) startPt = make_pair(lastTime + (j->first - lastTime)*(fabs(lastPoint)/(fabs(lastPoint) + fabs(j->second))),!(strict));
+          if(startPointDefined) startPt = make_pair(lastTime + (j->first - lastTime)*(std::abs(lastPoint)/(std::abs(lastPoint) + std::abs(j->second))),!(strict));
 
 
       };
@@ -1556,7 +1557,7 @@ Intervals NumericalSolution::getIntervals(const Comparison * comp, const State* 
                 if( j == points.end() ) {theEndPoint = lastTime; strict = false; break;};
                 if((positive && j->second < offSet) || (!positive && j->second > offSet) || (j->second == offSet && strict) )
                 {
-                    theEndPoint = lastTime + (j->first - lastTime)*(fabs(lastPoint)/(fabs(lastPoint) + fabs(j->second)));
+                    theEndPoint = lastTime + (j->first - lastTime)*(std::abs(lastPoint)/(std::abs(lastPoint) + std::abs(j->second)));
                     break;
                 };
 
@@ -1842,7 +1843,7 @@ void NumericalSolution::buildPoints(CoScalar a0,CoScalar b0,CoScalar y,CoScalar 
     //CoScalar maxPoints = 200;
     CoScalar h = 1.0;     //orignially 0.25
     CoScalar t = a0;
-    CoScalar br = b0 - 0.00001*fabs(b0);
+    CoScalar br = b0 - 0.00001*std::abs(b0);
     CoScalar err, ynew,s;
 
     //points.push_back(make_pair(double(a0),double(y))); //initial point
@@ -1859,7 +1860,7 @@ void NumericalSolution::buildPoints(CoScalar a0,CoScalar b0,CoScalar y,CoScalar 
       k5 = h*evaluateDiff(t + a5*h, y + b5*k1 + c5*k2 + d5*k3 + e5*k4);
       k6 = h*evaluateDiff(t + a6*h, y + b6*k1 + c6*k2 + d6*k3 + e6*k4 + f6*k5);
 
-      err = fabs(r1*k1 + r3*k3 + r4*k4 + r5*k5 + r6*k6);
+      err = std::abs(r1*k1 + r3*k3 + r4*k4 + r5*k5 + r6*k6);
       ynew = y + n1*k1 + n3*k3 + n4*k4 + n5*k5;
 
       if( err < accuracy || h < 2* hmin)

@@ -89,6 +89,11 @@ void DebugWriteController::write_float_expression(ostream & o,const float_expres
 	p->display(indent);
 };
 
+void DebugWriteController::write_normal_dist_expression(ostream & o,const normal_dist_expression * p)
+{
+	p->display(indent);
+};
+
 void DebugWriteController::write_special_val_expr(ostream & o,const special_val_expr * p)
 {
 	p->display(indent);
@@ -105,6 +110,11 @@ void DebugWriteController::write_class_func_term(ostream & o,const class_func_te
 };
 
 void DebugWriteController::write_assignment(ostream & o,const assignment * p)
+{
+	p->display(indent);
+};
+
+void DebugWriteController::write_probability(ostream & o,const probability * p)
 {
 	p->display(indent);
 };

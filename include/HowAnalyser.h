@@ -152,6 +152,11 @@ public:
 	{
 		cout << "Initial assignment value: not yet considered\n";
 	};
+
+	virtual void visit_probability(probability * a)
+	{
+		cout << "Initial probability value: not yet considered\n";
+	};
 	
 	virtual void visit_pred_decl(pred_decl * p)
 	{

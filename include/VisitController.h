@@ -48,11 +48,13 @@ struct VisitController {
 	virtual void visit_uminus_expression(uminus_expression *) {};
 	virtual void visit_int_expression(int_expression *) {};
 	virtual void visit_float_expression(float_expression *) {};
+	virtual void visit_normal_dist_expression(normal_dist_expression *) {};
 	virtual void visit_special_val_expr(special_val_expr *) {};
 	virtual void visit_violation_term(violation_term *) {};
 	virtual void visit_func_term(func_term *) {};
 	virtual void visit_class_func_term(class_func_term *) {};
 	virtual void visit_assignment(assignment *) {};
+	virtual void visit_probability(probability *) {};
 	virtual void visit_goal_list(goal_list * p) {p->pc_list<goal*>::visit(this);};
 	virtual void visit_constraint_goal(constraint_goal *) {};
 	virtual void visit_preference(preference *) {};
@@ -104,11 +106,13 @@ struct VisitController {
 	virtual void visit_uminus_expression(const uminus_expression * s) {visit_uminus_expression(const_cast<uminus_expression *>(s));};
 	virtual void visit_int_expression(const int_expression * s) {visit_int_expression(const_cast<int_expression *>(s));};
 	virtual void visit_float_expression(const float_expression * s) {visit_float_expression(const_cast<float_expression *>(s));};
+	virtual void visit_normal_dist_expression(const normal_dist_expression * s) {visit_normal_dist_expression(const_cast<normal_dist_expression *>(s));};
 	virtual void visit_special_val_expr(const special_val_expr * s) {visit_special_val_expr(const_cast<special_val_expr *>(s));};
 	virtual void visit_violation_term(const violation_term * v) {visit_violation_term(const_cast<violation_term *>(v));};
 	virtual void visit_func_term(const func_term * s) {visit_func_term(const_cast<func_term *>(s));};
 	virtual void visit_class_func_term(const class_func_term * s) {visit_class_func_term(const_cast<class_func_term *>(s));};
 	virtual void visit_assignment(const assignment * s) {visit_assignment(const_cast<assignment *>(s));};
+	virtual void visit_probability(const probability * s) {visit_probability(const_cast<probability *>(s));};
 	virtual void visit_goal_list(const goal_list * p) {visit_goal_list(const_cast<goal_list*>(p));};
 	virtual void visit_constraint_goal(const constraint_goal * cg) {visit_constraint_goal(const_cast<constraint_goal *>(cg));};
 	virtual void visit_preference(const preference * p) {visit_preference(const_cast<preference *>(p));};
