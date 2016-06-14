@@ -52,7 +52,7 @@ CXXFLAGS  = ${DEPENDFLAGS} -ansi -Wall -std=c++11 -Wno-deprecated-register -Wno-
 	${CXX} ${CPPFLAGS} ${CXXFLAGS} -c $< -o $@
 
 %.cpp : %.yacc
-	flex -+ -o src/lex.yy.cc src/pddl+.lex ; bison $< -o src/pddl+.cpp
+	flex++ -+ -o src/lex.yy.cc src/pddl+.lex ; bison $< -o src/pddl+.cpp
 
 
 
